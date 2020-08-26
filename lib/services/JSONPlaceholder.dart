@@ -17,15 +17,14 @@ class JSONPlaceholderService {
   }
 
   Future<List<Post>> getUserPosts() async {
-    final response =
-        await http.get("https://jsonplaceholder.typicode.com/posts");
+    final response = await http.get("https://jsonplaceholder.typicode.com/posts");
     if (response.statusCode == 200) {
       return (json.decode(response.body) as List)
           .map((data) => new Post.fromJson(data))
           .toList();
 
     } else {
-      throw Exception('Failed to load photos');
+      throw Exception('Failed to load posts');
     }
   }
 
