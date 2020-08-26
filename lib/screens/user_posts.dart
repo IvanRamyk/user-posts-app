@@ -41,6 +41,17 @@ class _PostsScreenState extends State<PostsScreen> {
     );
   }
 
+  Widget _buildBody(BuildContext context) {
+    if (_isLoading)
+        return Center(
+          child: CircularProgressIndicator(),
+        );
+    return ListView.builder(
+        itemCount: _posts.length,
+        itemBuilder: _buildPostItem
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,14 +59,7 @@ class _PostsScreenState extends State<PostsScreen> {
           title: Text("Recent posts"),
         ),
 
-        body: _isLoading
-            ? Center(
-          child: CircularProgressIndicator(),
-        )
-            : ListView.builder(
-            itemCount: _posts.length,
-            itemBuilder: _buildPostItem
-        )
+        body: _buildBody(context),
     );
   }
 

@@ -35,10 +35,22 @@ class _PostCommentsScreenState extends State<PostCommentsScreen> {
     );
   }
 
-  Widget _buildPostDivider(BuildContext context, int index) {
+  Widget _buildMessageDivider(BuildContext context, int index) {
     return Divider(
       height: 1,
       color: Colors.black.withOpacity(0.12),
+    );
+  }
+
+  Widget _buildBody(BuildContext context) {
+    if (_isLoading)
+      return Center(
+        child: CircularProgressIndicator(),
+      );
+    return ListView.separated(
+      itemCount: _comments.length,
+      itemBuilder: _buildCommentItem,
+      separatorBuilder: _buildMessageDivider,
     );
   }
 
@@ -48,15 +60,7 @@ class _PostCommentsScreenState extends State<PostCommentsScreen> {
         appBar: AppBar(
           title: Text("Comments"),
         ),
-        body: _isLoading
-            ? Center(
-          child: CircularProgressIndicator(),
-        )
-            : ListView.separated(
-          itemCount: _comments.length,
-          itemBuilder: _buildCommentItem,
-          separatorBuilder: _buildPostDivider,
-        )
+        body: _buildBody(context),
     );
   }
 
